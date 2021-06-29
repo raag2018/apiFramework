@@ -1,6 +1,13 @@
 <?php 
+	header('Access-Control-Allow-Origin: *');
 	include "bd/bd.php";
-	header("Access-Control-Allow-Origin: *");//cores
+	
+	/*header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+	header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+	header("Allow: GET, POST, OPTIONS, PUT, DELETE");//cores*/
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
 	if($_SERVER['REQUEST_METHOD'] == 'GET'){
 		if(isset($_GET['id'])){
 			$query = "SELECT * FROM framework WHERE id = ".$_GET['id'].";";
@@ -41,11 +48,13 @@
 	if($_POST['METHOD'] == 'DELETE'){
 		unset($_POST['METHOD']);
 		$id = $_GET['id'];
-		$query = "UPDATE FROM framework  WHERE id = $id;";
+		$query = "DELETE FROM framework  WHERE id = $id;";
 		$resultado = metodoDelete($query);
 		echo json_encode($resultado);
 		header("HTTP/1.1 200 OK");
 		exit();
 	}
+	
+	
 	header("HTTP/1.1 400 Bad Request");
  ?>
